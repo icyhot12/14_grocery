@@ -40,6 +40,7 @@ function addItem(e) {
         </div>`;
         list.appendChild(element);
         displayAlert("item added to the list",'success');
+        // show container
         container.classList.add('show-container')
     } else if (value && editFlag) {
         console.log("editing");
