@@ -1,6 +1,131 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
+:root {
+  --light-blue: hsl(205, 100%, 96%);
+  --dark-blue: hsl(205, 86%, 17%);
+  --normal-blue: #49a6e9;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--light-blue);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 200px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  border-radius: 5px;
+  width: 60vw;
+  padding-top: 80px;
+}
+
+.grocery-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.form-control {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  gap: 10px;
+}
+
+.grocery-form input {
+  border: none;
+  background-color: var(--light-blue);
+  padding: 5px 10px;
+  width: 70%;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+.submit-btn {
+  background-color: var(--normal-blue);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.clear-btn {
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: rgb(184, 44, 44);
+  letter-spacing: 2px;
+  font-size: 1rem;
+}
+
+.grocery-container {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+.show-container {
+  visibility: visible;
+}
+
+.grocery-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 40px;
+}
+
+.container-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  position: absolute;
+  top: 240px;
+}
+
+.edit {
+  color: green;
+}
+
+.trash {
+  color: rgb(184, 44, 44);
+}
+
+.alert {
+  text-transform: capitalize;
+  width: 40%;
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  top: 210px;
+}
+
+.alert-danger {
+  background-color: rgb(227, 173, 173);
+}
+
+.alert-success {
+  background-color: rgb(128, 222, 169);
+}
+
+.btn-container > button {
+  background-color: white;
+  border: none;
+}
