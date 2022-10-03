@@ -14,22 +14,23 @@ let editId = '';
 
 //event listeners
 form.addEventListener('submit', addItem)
+clearBtn.addEventListener('click', clearItems)
 
 // functions
 function addItem(e) {
-    e.preventDefault();
-    const value = grocery.value;
-    const id = new Date().getTime().toString();
+  e.preventDefault();
+  const value = grocery.value;
+  const id = new Date().getTime().toString();
 
-    if (value && !editFlag) {
-        const element = document.createElement('article');
-        //add class
-        element.classList.add('grocery-item');
-        //add id
-        const attr = document.createAttribute('data-id');
-        attr.value = id;
-        element.setAttributeNode(attr)
-        element.innerHTML = `<p class="title">${value}</p>
+  if (value && !editFlag) {
+    const element = document.createElement('article');
+    //add class
+    element.classList.add('grocery-item');
+    //add id
+    const attr = document.createAttribute('data-id');
+    attr.value = id;
+    element.setAttributeNode(attr)
+    element.innerHTML = `<p class="title">${value}</p>
         <div class="btn-container">
           <button type="button" class="edit-btn">
             <i class="fa-solid fa-pen-to-square fa-xl edit"></i>
@@ -38,27 +39,85 @@ function addItem(e) {
             <i class="fa-solid fa-trash fa-xl trash"></i>
           </button>
         </div>`;
-        list.appendChild(element);
-        displayAlert("item added to the list",'success');
-        // show container
-        container.classList.add('show-container')
-    } else if (value && editFlag) {
-        console.log("editing");
-    } else {
-        displayAlert("please enter value", "danger")
-    }
+    const deleteBtn = element.querySelector('.delete-btn');
+    const editBtn = element.querySelector('.edit-btn');
+    deleteBtn.addEventListener('click', deleteItem);
+    editBtn.addEventListener('click', editItem);
+    list.appendChild(element);
+    displayAlert("item added to the list", 'success');
+    // show container
+    container.classList.add('show-container');
+    // add to local storage
+    addToLocalStorage(id, value);
+    // set back to default
+    setBacktoDefault()
+  } else if (value && editFlag) {
+    console.log("editing");
+  } else {
+    displayAlert("please enter value", "danger")
+  }
 }
 
-//alert message
+// delete function
+function deleteItem(e) {
+  const element = e.currentTarget.parentElement.parentElement;
+  const id = element.dataset.id;
+  list.removeChild(element);
+  console.log(list.children.length)
+  if (list.children.length === 1) {
+    container.classList.remove("show-container");
+  }
+  displayAlert('item removed', 'danger');
+  setBacktoDefault();
+  // removeFromLocalStorage(id);
+}
 
+// edit function
+function editItem() {
+  const element = e.currentTarget.parentElement.parentElement;
+  editElement = e.currentTarget.parentElement.previousElementSibling;
+  grocery.value = editElement.innerHTML;
+}
+
+// alert message
 function displayAlert(text, action) {
-    alert.textContent = text;
-    alert.classList.add(`alert-${action}`);
+  alert.textContent = text;
+  alert.classList.add(`alert-${action}`);
 
-    //remove alert
+  // remove alert
 
-    setTimeout(function () {
-        alert.textContent = '';
-        alert.classList.remove(`alert-${action}`);
-    }, 2000)
+  setTimeout(function () {
+    alert.textContent = '';
+    alert.classList.remove(`alert-${action}`);
+  }, 2000)
+}
+
+// clear items
+function clearItems() {
+  const items = document.querySelectorAll('.grocery-item');
+  if (items.length > 0) {
+    items.forEach((item) => {
+      list.removeChild(item);
+    })
+  };
+  container.classList.remove('show-container')
+  displayAlert('empty list', "danger");
+  setBacktoDefault();
+  // localStorage.removeItem('list')
+};
+
+// set back to default
+function setBacktoDefault() {
+  grocery.value = '';
+  editFlag = false;
+  editId = '';
+  submitBtn.textContent = 'Submit'
+}
+
+function addToLocalStorage(id, value) {
+  // console.log("added to local storage");
+}
+
+function removeFromLocalStorage(id) {
+
 }
