@@ -95,7 +95,7 @@ function displayAlert(text, action) {
   setTimeout(function () {
     alert.textContent = '';
     alert.classList.remove(`alert-${action}`);
-  }, 2000)
+  }, 600)
 }
 
 // clear items
@@ -121,7 +121,11 @@ function setBacktoDefault() {
 }
 
 function addToLocalStorage(id, value) {
-  const grocery = { id, value };
+  // es6 - could be {id, value}
+  // if the same it is not necessary to repeat id:id value:value
+  // id - date id generation
+  // value - text value from input
+  const grocery = { id:id, value:value };
   let items = localStorage.getItem('list') ? JSON.parse(localStorage.getItem('list')) : [];
   items.push(grocery);
   localStorage.setItem('list', JSON.stringify(items))
